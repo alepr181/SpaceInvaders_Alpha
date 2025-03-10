@@ -1,0 +1,22 @@
+1º SPRINT
+
+Scrum 10-02-24
+
+OBJETIVO DE LA REUNIÓN: Designación de Scrum Master y designación de las tareas de cada Team Member.
+ASISTENTES: Lenka Kyjovská
+            Raúl Astorga
+            Samuel García
+            Ángel Ignacio Soler
+            Alejandro Puente
+            
+FECHA: 10 de febrero de 2024
+HORA: 11:20 - 11:30
+LUGAR: Politécnico de Jesús Marín
+Nos hemos reunido para asignar tareas y definir quién se hace cargo de coordinar el equipo. Las conclusiones han sido las siguientes:
+SCRUM MASTER: Lenka Kyjovská
+TAREA 1: Ángel Ignacio Soler: su tarea consiste en definir las Clases del diagrama UML.
+TAREA 2: Samuel García: su tarea consiste en asignar los Atributos Básicos y Derivados correspondientes a cada Clase.
+TAREA 3: Raúl Astorga: su tarea consiste en definir los métodos de cada Clase.
+TAREA 4: Alejandro Puente: su tarea consiste en la creación de la estructura Libgdx en Android Studio.
+PRÓXIMOS PASOS: Cada miembro del equipo se comprometió a cumplir con los plazos y los objetivos de complementar la tarea de manera más satisfactoria posible. La próxima reunión se centrará en la revisión de los avances, con el fin de garantizar que el proyecto avance conforme a lo planificado y resolver dudas y complicaciones que se puedan presentar.
+La designación de las tareas se ha basado en la decisión de Scrum Master.

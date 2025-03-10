@@ -1,0 +1,26 @@
+Reunión
+Fecha: 02/12/2024
+Asistencia: Completa
+Asunto: Comprobar si todos los Team Members están conformes con la tarea que les fue designada.
+        Discutir si es necesario crear un repositorio distinto.
+Conclusión: Los Team Members se sienten capaces de correcta realización de la tarea asignada. No hay dudas al respecto.
+            Se decidido de seguir trabajando en el repositorio creado por Iván Ruiz para que no hay confusiones.
+Reunión
+Fecha: 03/12/2024
+Asistencia: Completa
+Asunto: Comprobar si todos los Team Members han empezaron con su tarea correspondiente.
+Conclusión: Cristian Robles está en proceso. Los demás aún no han empezado.
+Reunión
+Fecha: 11/102/2025
+Asistencia: Completa (Politécnico Jesús Mar
+ín)
+Asunto: Discusión en qué modo nos vamos a organizar respeto a la tarea del diagrama UML debido a que cada paso depende del otro. Además, tuvo un debate sobre el entorno en cual sería lo más óptimo realizar el dicho diagrama.
+Reunión
+Fecha: 12/02/2025
+Asistencia: Completa (vía WhatsApp)
+Asunto: Saber si todos se pudiesen a conectar al repositorio en Git Hub creado por el Scrum Master. Había algunos percances sin importancia de no la llegada de invitación. Ángel puso en marcha su tarea ya que es lo primero que se debe hace: definir las clases .
+Conclusión: Todo va bien. Todos los miembros han conseguido el acceso al repositorio en Git Hub.
+Fecha: 13/02/2025
+Asistencia: Completa (vía WhatsApp)
+Asunto: Ángel ha terminado su tarea subiendo la en su rama a la rama developer preguntando a los demás miembros si se podemos a revisar.
+Conclusión: La tarea de Ángel está en revisión.
