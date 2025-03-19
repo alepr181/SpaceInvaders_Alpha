@@ -10,16 +10,11 @@ package com.politecnicomalaga.spaceinvaders;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-// import android.util.Log;    NO FUNCIONA.
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-// Averiguar tiempo transcurrido para cadendia disparo Batallón.
-import com.badlogic.gdx.utils.TimeUtils;
-// Disparo de un escuadrón aleatorio.
 import java.util.Random;
-import java.time.LocalDateTime;
 
 
 public class Batallon {

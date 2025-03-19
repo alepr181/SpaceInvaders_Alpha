@@ -5,9 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-// Disparo de una nave aleatoria.
 import java.util.Random;
 
 
