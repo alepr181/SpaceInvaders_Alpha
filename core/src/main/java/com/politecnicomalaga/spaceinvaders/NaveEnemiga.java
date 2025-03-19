@@ -3,9 +3,6 @@ package com.politecnicomalaga.spaceinvaders;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class NaveEnemiga extends Nave{
 
     private Texture textura;
@@ -18,7 +15,7 @@ public class NaveEnemiga extends Nave{
                        ObjetoVolador.direccion direccion,
                        Texture texdisparo) {
 
-        super(iPosX, iPosY, vel, iAncho, iAlto, imagen, estaVivo, direccion);
+        super(iPosX, iPosY, vel, iAncho, iAlto, imagen, estaVivo, direccion, false);
 
         textura = imagen;
 
