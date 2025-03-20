@@ -51,12 +51,12 @@ public class Batallon {
 
     // Constructor
     public Batallon(
-            String baseName_fileName_texture,
-            int totalEscuadrones, int totalNavesPorEscuadron,
-            int naveEnemigaAncho, int naveEnemigaAlto,
-            int screenWidth, int screenHeight,
-            Texture texdisparo,
-            int gameLevel) {
+        String baseName_fileName_texture,
+        int totalEscuadrones, int totalNavesPorEscuadron,
+        int naveEnemigaAncho, int naveEnemigaAlto,
+        int screenWidth, int screenHeight,
+        Texture texdisparo,
+        int gameLevel) {
 
 
         random = new Random();
@@ -80,14 +80,14 @@ public class Batallon {
         for (int i = 0; i < totalEscuadrones; i++){
 
             escuadrones.add (new Escuadron(
-                                "enemy.png",
-                                totalNavesPorEscuadron,
-                                posInicialX,
-                                posInicialY,
-                                vel, naveEnemigaAncho, naveEnemigaAlto, screenWidth, screenHeight,
-                                texdisparo
-                                )
-                            );  // add
+                    "enemy.png",
+                    totalNavesPorEscuadron,
+                    posInicialX,
+                    posInicialY,
+                    vel, naveEnemigaAncho, naveEnemigaAlto, screenWidth, screenHeight,
+                    texdisparo
+                )
+            );  // add
 
             posInicialY += naveEnemigaAlto + (int) naveEnemigaAlto / 5;  // El siguiente escuadrón estará más arriba.
 
@@ -174,7 +174,7 @@ public class Batallon {
         //unidadesSegundosActual = segundos % 10;
 
         if (decenasSegundosActual != decenasSegundosAnterior){
-        //if (unidadesSegundosActual == 0 || unidadesSegundosActual == 5){
+            //if (unidadesSegundosActual == 0 || unidadesSegundosActual == 5){
             decenasSegundosAnterior = decenasSegundosActual;
 
             //Elegimos un escuadrón al azar para que dispare:
@@ -185,5 +185,10 @@ public class Batallon {
     }  //  disparar()
 
 
+
+    //private ArrayList<Escuadron> escuadrones;
+    public ArrayList<Escuadron> getEscuadrones(){
+        return this.escuadrones;
+    }
 
 }  // fin clase

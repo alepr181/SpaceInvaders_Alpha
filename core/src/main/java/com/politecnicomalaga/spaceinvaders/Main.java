@@ -55,7 +55,7 @@ public class Main extends ApplicationAdapter {
     @Override
     public void create() {
         texdisparo = new Texture("bullet.png");
-        texdisparoEnemigo = new Texture("enemyBullet.png");
+        texdisparoEnemigo = new Texture("bullet.png");
         texnaveAmiga = new Texture("ship.png");
         texenemigo = new Texture("enemy.png");
         jugador = new NaveAmiga(Gdx.graphics.getWidth()/2, 0,1,30, 30,texnaveAmiga,true, ObjetoVolador.direccion.IZQ,3);

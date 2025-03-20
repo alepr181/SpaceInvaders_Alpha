@@ -27,10 +27,10 @@ public class Escuadron {
 
     // Constructor
     public Escuadron(
-                     String fileName_texture, int totalNaves, int posX, int posY, int vel,
-                     int naveEnemigaAncho, int naveEnemigaAlto,
-                     int screenWidth, int screenHeight,
-                     Texture texdisparo)
+        String fileName_texture, int totalNaves, int posX, int posY, int vel,
+        int naveEnemigaAncho, int naveEnemigaAlto,
+        int screenWidth, int screenHeight,
+        Texture texdisparo)
     {
 
 
@@ -60,9 +60,9 @@ public class Escuadron {
                     true,
                     Escuadron.direccion,
                     texdisparo)
-                );
+            );
 
-                posX += naveEnemigaAncho + (int) naveEnemigaAncho / 5;  // El siguiente estará más a la derecha
+            posX += naveEnemigaAncho + (int) naveEnemigaAncho / 5;  // El siguiente estará más a la derecha
         }  // for
 
 
@@ -108,9 +108,9 @@ public class Escuadron {
 
         // Si llegamos al límite derecho o izquierdo bajamos y cambiamos de dirección.
         if (    ( Escuadron.direccion == ObjetoVolador.direccion.DER  &&  maxX > this.screenWidth - (int) this.naveEnemigaAncho )
-                ||
-                ( Escuadron.direccion == ObjetoVolador.direccion.IZQ  &&  minX < this.naveEnemigaAncho )
-            )
+            ||
+            ( Escuadron.direccion == ObjetoVolador.direccion.IZQ  &&  minX < this.naveEnemigaAncho )
+        )
         {   // if_inicio
 
             // Bajamos
@@ -161,6 +161,11 @@ public class Escuadron {
     }
 
 
+
+    //getNaves
+    protected ArrayList<NaveEnemiga> getNaves(){
+        return this.navesEnemigas;
+    }
 
 
 }  // clase Escuadron
