@@ -69,6 +69,9 @@ public class ObjetoVolador {
     public boolean isEstaVivo() {
         return isEstaVivo;
     }
+    public void setEstaVivo(boolean estaVivo) {
+        isEstaVivo = estaVivo;
+    }
 
     public void moverse(Nave.direccion d) {
         switch (d) {
@@ -88,12 +91,13 @@ public class ObjetoVolador {
         }
     }
 
-    public static boolean colisionar(ObjetoVolador otroObjeto, Disparo disparo) {
+    public boolean colisionar(ObjetoVolador otroObjeto, ObjetoVolador otro) {
         // Crear rectángulos para la nave y el disparo para conocer su tamaño
         Rectangle naveRect = new Rectangle(otroObjeto.getiPosX(), otroObjeto.getiPosY(), otroObjeto.getiAncho(), otroObjeto.getiAlto());
-        Rectangle disparoRect = new Rectangle(disparo.getiPosX(), disparo.getiPosY(), disparo.getiAncho(), disparo.getiAlto());
+        Rectangle otroRect = new Rectangle(otro.getiPosX(), otro.getiPosY(), otro.getiAncho(), otro.getiAlto());
         // Verificar si se tocan
-        return naveRect.overlaps(disparoRect);
+        return naveRect.overlaps(otroRect);
     }
+
 
 }
