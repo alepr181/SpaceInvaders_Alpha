@@ -1,13 +1,6 @@
 package com.politecnicomalaga.spaceinvaders;
 
 
-// Usaré ArrayList en lugar de array porque se ha dicho en el grupo
-//      que será mejor valorado, pero en mi criterio personal, puesto
-//      que conocemos de antemano que son exactamente 3 escuadrones
-//      y cada uno tiene 8 naves amigas creo que sería mejor un array de 2 dimensiones
-//      Además la gestión de arrays es más eficiente que la de ArrayLists.
-
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -36,7 +29,7 @@ public class Batallon {
     // para generar disparos.
 
     private long ultimoDisparo = 0;
-    private long cadencia = 1000; // Un disparo cada 7.000 milisegundos = 7 segundos.
+    private long cadencia = 1000; // Un disparo cada 1.000 milisegundos = 1 segundos.
     private Random random;
 
 
@@ -126,6 +119,16 @@ public class Batallon {
 
 
     private void cambiarDireccion(){
+        // El cambio de dirección lo habrá pedido algún escuadrón y todos
+        //      lo hacen al mismo tiempo.
+        // Cuando ello ocurra, todos los escuadrones deben bajar
+        //      y es lo primero que vamos a hacer:
+        for (Escuadron escuadron : this.escuadrones){
+            escuadron.bajarPosicion();
+        }
+
+
+        // Ahora cambiamos la dirección del batallon:
         this.peticionCambioDireccion = false;
         if (this.direccion == ObjetoVolador.direccion.DER) {
             this.direccion = ObjetoVolador.direccion.IZQ;

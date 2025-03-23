@@ -10,8 +10,8 @@ import java.util.Random;
 
 public class Escuadron {
 
-    // Variables compartidas por todos los objetos escuadrones. Por eso son static.
-    private static ObjetoVolador.direccion direccion = ObjetoVolador.direccion.DER;
+    // Variable compartida por todos los objetos escuadrones. Por eso es static.
+    private static ObjetoVolador.direccion direccion;
 
 
 
@@ -115,14 +115,6 @@ public class Escuadron {
         )
         {   // if_inicio
 
-            // Bajamos la posición de cada nave.
-            for (int i = 0; i < navesEnemigas.size(); i++){
-
-                // Lo de abajo sí funciona, pero baja muy poco:
-                // navesEnemigas.get(i).moverse(ObjetoVolador.direccion.ABAJO);
-                navesEnemigas.get(i).setiPosY(navesEnemigas.get(i).getiPosY() - (int) this.naveEnemigaAlto/3);
-
-            }
             // Cambiamos de sentido izq/der para la próxima.
             batallon.pedirCambioDireccion();
 
@@ -136,10 +128,20 @@ public class Escuadron {
 
 
 
+    protected void bajarPosicion(){
+        // Bajamos la posición de cada nave.
+        for (int i = 0; i < navesEnemigas.size(); i++){
+
+            // Lo de abajo sí funciona, pero baja muy poco:
+            // navesEnemigas.get(i).moverse(ObjetoVolador.direccion.ABAJO);
+            navesEnemigas.get(i).setiPosY(navesEnemigas.get(i).getiPosY() - (int) this.naveEnemigaAlto/3);
+
+        }
+    }
+
+
+
     protected int getTotalNavesVivas(){ return this.totalNavesVivas;}
-
-
-
 
 
     public void disparar(){
@@ -152,8 +154,6 @@ public class Escuadron {
                 haDisparado = true;
             }
         } while (haDisparado == false);
-
-
     }
 
 
