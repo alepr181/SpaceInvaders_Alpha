@@ -21,7 +21,7 @@ public class Batallon {
 
     private ArrayList<Escuadron> escuadrones;
 
-    private int vel = 2;
+    private int vel_horizontal = 1;
     int posInicialY = 0;
     int posInicialX = 0;
     int gameLevel;
@@ -77,7 +77,7 @@ public class Batallon {
                     totalNavesPorEscuadron,
                     posInicialX,
                     posInicialY,
-                    vel, naveEnemigaAncho, naveEnemigaAlto, screenWidth, screenHeight,
+                    vel_horizontal, naveEnemigaAncho, naveEnemigaAlto, screenWidth, screenHeight,
                     texdisparo
                 )
             );  // add
