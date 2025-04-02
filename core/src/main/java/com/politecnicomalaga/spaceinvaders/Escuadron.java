@@ -10,12 +10,13 @@ import java.util.Random;
 
 public class Escuadron {
 
-    // Variables compartidas por todos los objetos escuadrones. Por eso son static.
-    private static ObjetoVolador.direccion direccion = ObjetoVolador.direccion.DER;
+    // Variable compartida por todos los objetos escuadrones. Por eso es static.
+    private static ObjetoVolador.direccion direccion;
 
 
 
     private ArrayList<NaveEnemiga> navesEnemigas;
+    private int totalNavesVivas;
 
     private Texture texturaTmp;
     private Texture texdisparo;
@@ -98,34 +99,28 @@ public class Escuadron {
                 if (nave.getiPosX() > maxX) { maxX = nave.getiPosX(); }
                 if (nave.getiPosX() < minX) { minX = nave.getiPosX(); }
 
-                nave.updateDisparos();
-                nave.drawDisparos(batch);
+                nave.updateDisparos();      // Se recalculan las posiciones de los disparos.
+                nave.drawDisparos(batch);   // Se dibujan en las posiciones calculadas.
             }
             //else {navesEnemigas.remove(i); }
         }  // for
 
 
 
-        // Si llegamos al límite derecho o izquierdo bajamos y cambiamos de dirección.
+        // Si llegamos al límite derecho o izquierdo bajamos
+        // y solicitamos al Batallón el cambio de dirección.
         if (    ( Escuadron.direccion == ObjetoVolador.direccion.DER  &&  maxX > this.screenWidth - (int) this.naveEnemigaAncho )
             ||
             ( Escuadron.direccion == ObjetoVolador.direccion.IZQ  &&  minX < this.naveEnemigaAncho )
         )
         {   // if_inicio
 
-            // Bajamos
-            for (int i = 0; i < navesEnemigas.size(); i++){
-
-                // Lo de abajo sí funciona, pero baja muy poco:
-                // navesEnemigas.get(i).moverse(ObjetoVolador.direccion.ABAJO);
-                navesEnemigas.get(i).setiPosY(navesEnemigas.get(i).getiPosY() - (int) this.naveEnemigaAlto/3);
-
-            }
             // Cambiamos de sentido izq/der para la próxima.
             batallon.pedirCambioDireccion();
 
         }   // if_fin
 
+        this.totalNavesVivas = totalNaves;
         return totalNaves;
 
 
@@ -133,31 +128,32 @@ public class Escuadron {
 
 
 
-    // by aisd. Ver con Samuel y Raúl.
-    public void procesarDisparosAmigos(List<Disparo> disparos_amigos){
+    protected void bajarPosicion(){
+        // Bajamos la posición de cada nave.
         for (int i = 0; i < navesEnemigas.size(); i++){
-            comprobarDisparos(navesEnemigas.get(i), disparos_amigos );
+
+            // Lo de abajo sí funciona, pero baja muy poco:
+            // navesEnemigas.get(i).moverse(ObjetoVolador.direccion.ABAJO);
+            navesEnemigas.get(i).setiPosY(navesEnemigas.get(i).getiPosY() - (int) this.naveEnemigaAlto/3);
+
         }
     }
 
-    // by aisd. Ver con Samuel y Raúl.
-    public void comprobarDisparos(NaveEnemiga unaNave, List<Disparo> disparos_amigos){
-
-        // TODO: lo descrito abajo.
-        // Aquí se recibe una naveEnemiga.
-        // Habría que comprobar sus coordenadas, ancho y alto con las de cada disparo,
-        //  por lo que habría que recorrer el array de disparos.
 
 
-    }
+    protected int getTotalNavesVivas(){ return this.totalNavesVivas;}
 
 
     public void disparar(){
-        int i = random.nextInt(navesEnemigas.size());  // Elegimos nave al azar
-        if (navesEnemigas.get(i).isEstaVivo()){
-            navesEnemigas.get(i).disparar(texdisparo);
-        }
+        boolean haDisparado = false;
 
+        do {
+            int i = random.nextInt(navesEnemigas.size());  // Elegimos nave al azar
+            if (navesEnemigas.get(i).isEstaVivo()){
+                navesEnemigas.get(i).disparar(texdisparo);
+                haDisparado = true;
+            }
+        } while (haDisparado == false);
     }
 
 
