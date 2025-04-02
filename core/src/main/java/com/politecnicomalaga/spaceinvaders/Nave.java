@@ -22,6 +22,10 @@ public class Nave extends ObjetoVolador {
         disparos = new ArrayList<Disparo>();
     }
 
+    public void setEstaVivo(boolean estaVivo) {
+        this.estaVivo = estaVivo;
+    }
+
     public boolean isEstaVivo() {
         return estaVivo;
     }
@@ -34,9 +38,9 @@ public class Nave extends ObjetoVolador {
         this.direccion = direccion;
     }
 
-    public void disparar(Texture imagen) {
+    public boolean disparar(Texture imagen) {
         Disparo nuevo = new Disparo(this.getiPosX() + 11, this.getiPosY(), 2, 6, 20, imagen);
-        disparos.add(nuevo);
+        return disparos.add(nuevo);
     }
 
     public void drawDisparos(SpriteBatch sp) {

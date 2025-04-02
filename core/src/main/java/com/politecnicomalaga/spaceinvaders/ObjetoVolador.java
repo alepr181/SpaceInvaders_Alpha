@@ -11,8 +11,6 @@ public class ObjetoVolador {
     private int iAncho;
     private int iAlto;
 
-    private boolean isEstaVivo;
-
     private Texture imagen;
     public enum direccion {
         ARRIBA, ABAJO, IZQ, DER;
@@ -26,7 +24,6 @@ public class ObjetoVolador {
         this.iAncho = iAncho;
         this.iAlto = iAlto;
         this.imagen = imagen;
-        this.isEstaVivo = true;
     }
 
 
@@ -66,10 +63,6 @@ public class ObjetoVolador {
         Vel = vel;
     }
 
-    public boolean isEstaVivo() {
-        return isEstaVivo;
-    }
-
     public void moverse(Nave.direccion d) {
         switch (d) {
             case ARRIBA:
@@ -88,12 +81,13 @@ public class ObjetoVolador {
         }
     }
 
-    public static boolean colisionar(ObjetoVolador otroObjeto, Disparo disparo) {
+    public boolean colisionar(ObjetoVolador otroObjeto, ObjetoVolador otro) {
         // Crear rectángulos para la nave y el disparo para conocer su tamaño
         Rectangle naveRect = new Rectangle(otroObjeto.getiPosX(), otroObjeto.getiPosY(), otroObjeto.getiAncho(), otroObjeto.getiAlto());
-        Rectangle disparoRect = new Rectangle(disparo.getiPosX(), disparo.getiPosY(), disparo.getiAncho(), disparo.getiAlto());
+        Rectangle otroRect = new Rectangle(otro.getiPosX(), otro.getiPosY(), otro.getiAncho(), otro.getiAlto());
         // Verificar si se tocan
-        return naveRect.overlaps(disparoRect);
+        return naveRect.overlaps(otroRect);
     }
+
 
 }

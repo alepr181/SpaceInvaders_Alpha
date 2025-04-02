@@ -1,17 +1,10 @@
 package com.politecnicomalaga.spaceinvaders;
 
 
-// Usaré ArrayList en lugar de array porque se ha dicho en el grupo
-//      que será mejor valorado, pero en mi criterio personal, puesto
-//      que conocemos de antemano que son exactamente 3 escuadrones
-//      y cada uno tiene 8 naves amigas creo que sería mejor un array de 2 dimensiones
-//      Además la gestión de arrays es más eficiente que la de ArrayLists.
-
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.TimeUtils;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -21,7 +14,7 @@ public class Batallon {
 
     private ArrayList<Escuadron> escuadrones;
 
-    private int vel = 2;
+    private int vel_horizontal = 1;
     int posInicialY = 0;
     int posInicialX = 0;
     int gameLevel;
@@ -34,29 +27,22 @@ public class Batallon {
 
 
     // para generar disparos.
-    private static long tiempoUltimoDisparo = 0;
-    final int UN_SEGUNDO = 1000;
-    private long tiempoTranscurrido = 0;
-    private int cadencia = 10000; // Un disparo cada 10.000 milisegundos = 10 segundos.
+
+    private long ultimoDisparo = 0;
+    private long cadencia = 1000; // Un disparo cada 1.000 milisegundos = 1 segundos.
     private Random random;
 
 
-    // No consigo que funcione lo de arriba.
-    // Pruebo de otra forma:
-    private int decenasSegundosAnterior = -1;
-    int segundos = 0;
-    int decenasSegundosActual = 0;
-    int unidadesSegundosActual = 0;
 
 
     // Constructor
     public Batallon(
-            String baseName_fileName_texture,
-            int totalEscuadrones, int totalNavesPorEscuadron,
-            int naveEnemigaAncho, int naveEnemigaAlto,
-            int screenWidth, int screenHeight,
-            Texture texdisparo,
-            int gameLevel) {
+        String baseName_fileName_texture,
+        int totalEscuadrones, int totalNavesPorEscuadron,
+        int naveEnemigaAncho, int naveEnemigaAlto,
+        int screenWidth, int screenHeight,
+        Texture texdisparo,
+        int gameLevel) {
 
 
         random = new Random();
@@ -80,14 +66,14 @@ public class Batallon {
         for (int i = 0; i < totalEscuadrones; i++){
 
             escuadrones.add (new Escuadron(
-                                "enemy.png",
-                                totalNavesPorEscuadron,
-                                posInicialX,
-                                posInicialY,
-                                vel, naveEnemigaAncho, naveEnemigaAlto, screenWidth, screenHeight,
-                                texdisparo
-                                )
-                            );  // add
+                    "enemy.png",
+                    totalNavesPorEscuadron,
+                    posInicialX,
+                    posInicialY,
+                    vel_horizontal, naveEnemigaAncho, naveEnemigaAlto, screenWidth, screenHeight,
+                    texdisparo
+                )
+            );  // add
 
             posInicialY += naveEnemigaAlto + (int) naveEnemigaAlto / 5;  // El siguiente escuadrón estará más arriba.
 
@@ -97,12 +83,15 @@ public class Batallon {
     }  // Constructor
 
 
+
+
+
     /**
      * Este me_to_do:
-     *      1º Ejecuta el mé_to_do draw de todos los batallones.
-     *      2º Retorna la cantidad de naves del batallón
-     * @param batch
-     * @return
+     *               Ejecuta el mé_to_do draw de todos los batallones.
+     *
+     * @param batch: Objeto donde dibujar efectivamente en pantalla.
+     * @return.....: Retorna la cantidad de naves VIVAS del batallón.
      */
     public int draw(SpriteBatch batch){
 
@@ -130,6 +119,16 @@ public class Batallon {
 
 
     private void cambiarDireccion(){
+        // El cambio de dirección lo habrá pedido algún escuadrón y todos
+        //      lo hacen al mismo tiempo.
+        // Cuando ello ocurra, todos los escuadrones deben bajar
+        //      y es lo primero que vamos a hacer:
+        for (Escuadron escuadron : this.escuadrones){
+            escuadron.bajarPosicion();
+        }
+
+
+        // Ahora cambiamos la dirección del batallon:
         this.peticionCambioDireccion = false;
         if (this.direccion == ObjetoVolador.direccion.DER) {
             this.direccion = ObjetoVolador.direccion.IZQ;
@@ -145,45 +144,32 @@ public class Batallon {
 
 
 
-    // by aisd. Ver con Samuel y Raúl.
-    public void procesarDisparosAmigos(List<Disparo> disparos_amigos){
-        for (int i = 0; i < escuadrones.size(); i++){
-            escuadrones.get(i).procesarDisparosAmigos(disparos_amigos);
-        }
-    }
 
 
 
     private void disparar(){
-        // Disparará teniendo en cuenta la variable cadencia,
-        //  que ahora tiene valor fijo a 10 segundos pero podría
-        //  modificarse según avance el juego modificando la variable gameLevel.
 
-        /*  NO FUNCIONA:
-        long tiempoActual = System.currentTimeMillis();
-        tiempoTranscurrido = TimeUtils.millis() - tiempoTranscurrido;
-        if (tiempoActual - tiempoTranscurrido > cadencia*100000000){
-            tiempoUltimoDisparo = tiempoActual;
-         */
+        if (TimeUtils.millis() - ultimoDisparo > cadencia) {
+            ultimoDisparo = TimeUtils.millis();
 
-
-        // Pruebo a disparar cuando cambien el dígito de las decenas de segundos:
-        LocalDateTime ahora = LocalDateTime.now();
-        segundos = ahora.getSecond();
-        decenasSegundosActual = segundos / 10;
-        //unidadesSegundosActual = segundos % 10;
-
-        if (decenasSegundosActual != decenasSegundosAnterior){
-        //if (unidadesSegundosActual == 0 || unidadesSegundosActual == 5){
-            decenasSegundosAnterior = decenasSegundosActual;
-
-            //Elegimos un escuadrón al azar para que dispare:
-            int i = random.nextInt(escuadrones.size());
-            escuadrones.get(i).disparar();
-        }
+            // Elegimos un escuadrón al azar para que dispare.
+            // Buscamos uno al azar que tenga naves vivas.
+            do {
+                int i = random.nextInt(escuadrones.size());
+                if (escuadrones.get(i).getTotalNavesVivas() > 0) {
+                    escuadrones.get(i).disparar();
+                    break;  // Ha disparado --> salimos del bucle
+                }
+            } while (true);   // bucle infinito. Salimos con break cuando se haya dado orden de disparar.
+        }   // if
 
     }  //  disparar()
 
 
+
+    //Se utiliza en Main para comprobar colisiones.
+    public ArrayList<Escuadron> getEscuadrones(){
+        return this.escuadrones;
+    }
 
 }  // fin clase

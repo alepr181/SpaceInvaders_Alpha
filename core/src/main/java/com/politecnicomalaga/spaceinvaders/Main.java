@@ -46,16 +46,13 @@ public class Main extends ApplicationAdapter {
      */
 
     int totalNavesVivas;
-
-    // TODO: Afectará a la velocidad de movimiento del batallón,
-    //          cadencia de tiro, etc.
     int gameLevel = 1;
 
 
     @Override
     public void create() {
         texdisparo = new Texture("bullet.png");
-        texdisparoEnemigo = new Texture("enemyBullet.png");
+        texdisparoEnemigo = new Texture("bullet.png");
         texnaveAmiga = new Texture("ship.png");
         texenemigo = new Texture("enemy.png");
         jugador = new NaveAmiga(Gdx.graphics.getWidth()/2, 0,1,30, 30,texnaveAmiga,true, ObjetoVolador.direccion.IZQ,3);
@@ -66,8 +63,8 @@ public class Main extends ApplicationAdapter {
         music_playing.setLooping(true);
         music_playing.play();
         //samuel
-        gameover = new Texture("gameover2.png");
-        gamewin = new Texture("win.jpeg");
+        gameover = new Texture("gameover2.jpeg");
+        gamewin = new Texture("win.png");
 
 
         // by aisd (Angel)
@@ -111,20 +108,10 @@ public class Main extends ApplicationAdapter {
             jugador.drawDisparos(batch);
             jugador.updateDisparos();
         }
-
-        // by aisd. Ver con Samuel y Raúl.
-        //batallon.procesarDisparosAmigos(jugador.getDisparos());
-
-        // En tu método render() o en el método de dibujo:
-
-        // by aisd (Angel)
-        // Llamamos al mé_to_do draw del batallón que
-        //      - Devuelve el total de naves vivas.
-        //      - Controla movimientos, etc.
         totalNavesVivas = batallon.draw(batch);
         if (totalNavesVivas == 0){
-            // todo: GAME OVER
             batch.draw(gamewin, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            music_playing.stop();
         }
 
 
@@ -134,9 +121,7 @@ public class Main extends ApplicationAdapter {
             Disparo disparo = jugador.getDisparos().get(i);
             for (Escuadron escuadron : batallon.getEscuadrones()) {
                 for (NaveEnemiga nave : escuadron.getNaves()) {
-                    if (ObjetoVolador.colisionar(nave, disparo)) {
-                        //sonido choque
-                        //vgmcolision.play();
+                    if (nave.colisionar(nave, disparo)) {
                         //elimino nave enemiga y disparo jugador
                         escuadron.getNaves().remove(nave);
                         jugador.getDisparos().remove(disparo);
@@ -147,26 +132,42 @@ public class Main extends ApplicationAdapter {
             }
         }
 
-
-
-        //disparo enemigo colisiona con nave amiga
-        /*
-        for(int i=0 ; i<enemigo.getDisparos().size(); i++){
-            Disparo disparo = enemigo.getDisparos().get(i);
-            for (Escuadron escuadron : batallon.getEscuadrones()) {
-                for (jugador : escuadron.getNaves()) {
-                    if (ObjetoVolador.colisionar(jugador, disparo)) {
-                        NaveAmiga.iVidas--;
-                        enemigo.getDisparos().remove(disparo);
-                        break;
+        //si colisiona jugador con nave enemiga
+        for(int i=0 ; i<batallon.getEscuadrones().size(); i++){
+            for(int j=0; j<batallon.getEscuadrones().get(i).getNaves().size(); j++){
+                if(jugador.colisionar(jugador,batallon.getEscuadrones().get(i).getNaves().get(j))){
+                    batch.draw(gameover,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());;
+                    break;
+                }
+            }
+        }
+        //si colisiona jugador con disparo enemigo
+        for(int i=0 ; i<batallon.getEscuadrones().size(); i++){
+            for(int j=0; j<batallon.getEscuadrones().get(i).getNaves().size(); j++){
+                //poner condicion para que solo se ejecute si hay disparos
+                if(batallon.getEscuadrones().get(i).getNaves().get(j).getDisparos()!=null){
+                    for(int k=0; k<batallon.getEscuadrones().get(i).getNaves().get(j).getDisparos().size(); k++){
+                        if(jugador.colisionar(jugador,batallon.getEscuadrones().get(i).getNaves().get(j).getDisparos().get(k))) {
+                            System.out.println("colision");
+                            jugador.setEstaVivo(false);
+                            batallon.getEscuadrones().get(i).getNaves().get(j).getDisparos().remove(k);
+                            break;
+                        }
+                        if (!jugador.isEstaVivo()) {
+                            break;
+                        }
                     }
                 }
             }
         }
-        */
+        if (!jugador.isEstaVivo()) {
+            batch.draw(gameover, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            music_playing.stop();
+        }
 
 
         batch.end();
+
     }  // fin render()
 
 
