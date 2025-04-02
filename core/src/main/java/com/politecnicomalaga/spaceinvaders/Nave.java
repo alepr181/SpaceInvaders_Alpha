@@ -22,6 +22,10 @@ public class Nave extends ObjetoVolador {
         disparos = new ArrayList<Disparo>();
     }
 
+    public void setEstaVivo(boolean estaVivo) {
+        this.estaVivo = estaVivo;
+    }
+
     public boolean isEstaVivo() {
         return estaVivo;
     }

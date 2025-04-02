@@ -46,9 +46,6 @@ public class Main extends ApplicationAdapter {
      */
 
     int totalNavesVivas;
-
-    // TODO: Afectará a la velocidad de movimiento del batallón,
-    //          cadencia de tiro, etc.
     int gameLevel = 1;
 
 
@@ -111,10 +108,10 @@ public class Main extends ApplicationAdapter {
             jugador.drawDisparos(batch);
             jugador.updateDisparos();
         }
-
         totalNavesVivas = batallon.draw(batch);
         if (totalNavesVivas == 0){
             batch.draw(gamewin, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            music_playing.stop();
         }
 
 
@@ -125,8 +122,6 @@ public class Main extends ApplicationAdapter {
             for (Escuadron escuadron : batallon.getEscuadrones()) {
                 for (NaveEnemiga nave : escuadron.getNaves()) {
                     if (nave.colisionar(nave, disparo)) {
-                        //sonido choque
-                        //vgmcolision.play();
                         //elimino nave enemiga y disparo jugador
                         escuadron.getNaves().remove(nave);
                         jugador.getDisparos().remove(disparo);
@@ -154,19 +149,25 @@ public class Main extends ApplicationAdapter {
                     for(int k=0; k<batallon.getEscuadrones().get(i).getNaves().get(j).getDisparos().size(); k++){
                         if(jugador.colisionar(jugador,batallon.getEscuadrones().get(i).getNaves().get(j).getDisparos().get(k))) {
                             System.out.println("colision");
+                            jugador.setEstaVivo(false);
                             batallon.getEscuadrones().get(i).getNaves().get(j).getDisparos().remove(k);
+                            break;
+                        }
+                        if (!jugador.isEstaVivo()) {
                             break;
                         }
                     }
                 }
             }
         }
-
-
-
+        if (!jugador.isEstaVivo()) {
+            batch.draw(gameover, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            music_playing.stop();
+        }
 
 
         batch.end();
+
     }  // fin render()
 
 

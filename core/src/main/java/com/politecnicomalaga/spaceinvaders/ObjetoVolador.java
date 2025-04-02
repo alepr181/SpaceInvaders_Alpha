@@ -11,8 +11,6 @@ public class ObjetoVolador {
     private int iAncho;
     private int iAlto;
 
-    private boolean isEstaVivo;
-
     private Texture imagen;
     public enum direccion {
         ARRIBA, ABAJO, IZQ, DER;
@@ -26,7 +24,6 @@ public class ObjetoVolador {
         this.iAncho = iAncho;
         this.iAlto = iAlto;
         this.imagen = imagen;
-        this.isEstaVivo = true;
     }
 
 
@@ -64,13 +61,6 @@ public class ObjetoVolador {
 
     public void setVel(int vel) {
         Vel = vel;
-    }
-
-    public boolean isEstaVivo() {
-        return isEstaVivo;
-    }
-    public void setEstaVivo(boolean estaVivo) {
-        isEstaVivo = estaVivo;
     }
 
     public void moverse(Nave.direccion d) {
